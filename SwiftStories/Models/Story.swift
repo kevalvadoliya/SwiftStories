@@ -7,8 +7,10 @@
 
 import Foundation
 
-struct Story {
-    let id = UUID()
+struct Story: Identifiable, Hashable {
+    var id: String {
+        "\(user.id)-\(photo.id)"
+    }
     let user: User
     let photo: Photo
 }
