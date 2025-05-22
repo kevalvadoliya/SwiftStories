@@ -17,3 +17,11 @@ struct User: Codable {
         case profilePictureURL = "profile_picture_url"
     }
 }
+
+struct UserPage: Codable {
+    let users: [User]
+}
+
+struct UsersData: Codable {
+    let pages: [UserPage]
+}

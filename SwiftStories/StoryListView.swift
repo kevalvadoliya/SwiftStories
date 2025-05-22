@@ -8,11 +8,14 @@
 import SwiftUI
 
 struct StoryListView: View {
+    
+    @ObservedObject var viewModel: StoryListViewModel
+    
     var body: some View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
     }
 }
 
 #Preview {
-    StoryListView()
+    StoryListView(viewModel: StoryListViewModel())
 }

@@ -9,10 +9,12 @@ import SwiftUI
 
 @main
 struct SwiftStoriesApp: App {
+    
+    @ObservedObject private var viewModel = StoryListViewModel()
 
     var body: some Scene {
         WindowGroup {
-            StoryListView()
+            StoryListView(viewModel: viewModel)
         }
     }
 }
