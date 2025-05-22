@@ -10,7 +10,8 @@ import SwiftUI
 class StoryListViewModel: ObservableObject {
     
     @Published var users: [User] = []
-    @Published var photos: [Photo] = []
+    @Published var stories: [Story] = []
+    
     @Published var isLoading = false
     @Published var currentPagee = 1
     
@@ -36,14 +37,19 @@ class StoryListViewModel: ObservableObject {
         do {
             let urlRequest = URLRequest(url: url)
             let (data, _) = try await URLSession.shared.data(for: urlRequest)
-            self.photos = try JSONDecoder().decode([Photo].self, from: data)
+            let photos = try JSONDecoder().decode([Photo].self, from: data)
             await MainActor.run {
+                let filteredUsers = self.users.shuffled().prefix(photos.count)
+                let newStoreis = zip(filteredUsers, photos).map { Story(user: $0.0, photo: $0.1)}
+                stories.append(contentsOf: newStoreis)
+                self.currentPagee += 1
                 isLoading = true
             }
         } catch {
             await MainActor.run {
                 isLoading = true
             }
+            // TODO: handle error
         }
     }
     
